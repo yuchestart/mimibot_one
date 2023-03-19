@@ -40,9 +40,9 @@ def readEncoder():
     encoderBValue = g.input(ENCODER_B)
     #Tune as needed
     if encoderBValue:
-        POSITION+=1
-    else:
         POSITION-=1
+    else:
+        POSITION+=1
 KP = 1
 KD = 0
 KI = 0
@@ -51,10 +51,16 @@ preve = 0
 t = 0
 prevt = 0
 target = 5
+LPS = 1/30 # save resources
 def pid_loop():
     global KP,KD,KI,e,preve,t,prevt,target
+    pass
 setup()
 try:
-    pass
+    while True:
+        a = g.input(ENCODER_A)
+        b = g.input(ENCODER_B)
+        print(a,b)
+        sleep(LPS)
 except KeyboardInterrupt:
     g.cleanup()
