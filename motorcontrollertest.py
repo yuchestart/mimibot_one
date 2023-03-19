@@ -1,64 +1,60 @@
 #Import RPi.GPIO library
 import RPi.GPIO as g
+from time import sleep
+from timeit import timeit
 
-#Initiate Drivetrain class
-class Drivetrain():
-    def __init__(self,spdA,spdB,fwd1,bkd1,fwd2,bkd2):
-        #Set pin references
-        self.sA = spdA
-        self.sB = spdB
-        self.fA = fwd1
-        self.bA = bkd1
-        self.fB = fwd2
-        self.bB = bkd2
-        #Setup GPIO
-        g.setmode(g.BOARD)
-        g.setup(self.sA,g.OUT)
-        g.setup(self.fA,g.OUT)
-        g.setup(self.bA,g.OUT)
-        g.setup(self.sB,g.OUT)
-        g.setup(self.fB,g.OUT)
-        g.setup(self.bB,g.OUT)
-        #Setup PWM cycles
-        self.pA = g.PWM(self.sA,1000)
-        self.pB = g.PWM(self.sB,1000)
-        self.pA.start(0)
-        self.pB.start(0)
-        #Setup directions
-        g.output(self.fA,g.LOW)
-        g.output(self.fB,g.LOW)
-        g.output(self.bA,g.LOW)
-        g.output(self.bB,g.LOW)
-        #Setup user settings
-        self.speed = 0 #Speed to travel at in r/s
-        self.steeringAngle = 0 #Angle to steer at in d/s
-        self.direction = True # True for forwards
-        self.moving = False
-    def stop(self):
-        self.moving = False
-    def start(self):
-        self.moving = True
-    def setSpeed(self,speed):
-        if(speed<0):
-            self.speed = abs(speed)
-            self.direction = not self.direction
-        else:
-            self.speed = abs(speed)
-    def steer(self,steeringAngle):
-        self.steeringAngle = steeringAngle
-    def update(self):
-        if(self.moving):
-            pass
-    
-
-def main(args=None):
+ENCODER_A = 18
+ENCODER_B = 22
+ENA = 7
+IN1 = 12
+IN2 = 13
+SPEED_PWM = None
+POSITION = 0
+def setup():
+    global ENCODER_A,ENCODER_B,ENA,IN1,IN2,SPEED_PWM
+    g.setmode(g.BOARD)
+    g.setup(ENCODER_A,g.IN)
+    g.setup(ENCODER_B,g.IN)
+    g.setup(ENA,g.OUT)
+    g.setup(IN1,g.OUT)
+    g.setup(IN2,g.OUT)
+    SPEED_PWM = g.PWM(ENA,1000)
+    SPEED_PWM.start(0)
+    g.output(IN1,g.LOW)
+    g.output(IN2,g.LOW)
+    g.add_event_detect(ENCODER_A,g.RISING,callback=readEncoder)
+def setMotor(speed,direction):
+    global SPEED_PWM,IN1,IN2
+    SPEED_PWM.changeDutyCycle(speed)
+    if direction == "F":
+        g.output(IN1,g.HIGH)
+        g.output(IN2,g.LOW)
+    elif direction == "B":
+        g.output(IN1,g.LOW)
+        g.output(IN2,g.HIGH)
+    elif direction == "S":
+        g.output(IN1,g.LOW)
+        g.output(IN1,g.LOW)
+def readEncoder():
+    global ENCODER_B,POSITION
+    encoderBValue = g.input(ENCODER_B)
+    #Tune as needed
+    if encoderBValue:
+        POSITION+=1
+    else:
+        POSITION-=1
+KP = 1
+KD = 0
+KI = 0
+e = 0
+preve = 0
+t = 0
+prevt = 0
+target = 5
+def pid_loop():
+    global KP,KD,KI,e,preve,t,prevt,target
+setup()
+try:
     pass
-
-if __name__ == "__main__":
-    try:
-        #Mainloop
-        while(True):
-            main()
-    except KeyboardInterrupt:
-        #Cleanup GPIO to prevent any unwanted problems
-        g.cleanup()
+except KeyboardInterrupt:
+    g.cleanup()
