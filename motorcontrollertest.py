@@ -35,10 +35,9 @@ def setMotor(speed,direction):
     elif direction == "S":
         g.output(IN1,g.LOW)
         g.output(IN1,g.LOW)
-def readEncoder():
+def readEncoder(a):
     global ENCODER_B,POSITION
     encoderBValue = g.input(ENCODER_B)
-    
     #Tune as needed
     if encoderBValue:
         POSITION-=1
