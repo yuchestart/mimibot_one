@@ -38,11 +38,13 @@ def setMotor(speed,direction):
 def readEncoder():
     global ENCODER_B,POSITION
     encoderBValue = g.input(ENCODER_B)
+    
     #Tune as needed
     if encoderBValue:
         POSITION-=1
     else:
         POSITION+=1
+    print(g.input(ENCODER_A),g.input(ENCODER_B),POSITION)
 KP = 1
 KD = 0
 KI = 0
@@ -57,10 +59,6 @@ def pid_loop():
     pass
 setup()
 try:
-    while True:
-        a = g.input(ENCODER_A)
-        b = g.input(ENCODER_B)
-        print(a,b)
-        sleep(LPS)
+    pass
 except KeyboardInterrupt:
     g.cleanup()
