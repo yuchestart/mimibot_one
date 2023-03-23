@@ -2,7 +2,7 @@ import RPi.GPIO as g
 from time import sleep
 g.setmode(g.BOARD)
 g.setup(40,g.OUT)
-pwm = g.PWM(40,100)
+pwm = g.PWM(40,1000)
 pwm.start(50)
 val = 0
 dir = 1
