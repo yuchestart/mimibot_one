@@ -56,6 +56,7 @@ def pid_loop():
     global KP,KD,KI,e,preve,t,prevt,target
     pass
 setup()
+setMotor(100,"Fs")
 try:
     while True:
         print(g.input(ENCODER_A),g.input(ENCODER_B),POSITION)
