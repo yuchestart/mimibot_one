@@ -44,7 +44,6 @@ def readEncoder():
         POSITION-=1
     else:
         POSITION+=1
-    print(g.input(ENCODER_A),g.input(ENCODER_B),POSITION)
 KP = 1
 KD = 0
 KI = 0
@@ -59,6 +58,7 @@ def pid_loop():
     pass
 setup()
 try:
-    pass
+    while True:
+        print(g.input(ENCODER_A),g.input(ENCODER_B),POSITION)
 except KeyboardInterrupt:
     g.cleanup()
