@@ -25,7 +25,7 @@ def setup():
     g.add_event_detect(ENCODER_A,g.RISING,callback=readEncoder)
 def setMotor(speed,direction):
     global SPEED_PWM,IN1,IN2
-    SPEED_PWM.changeDutyCycle(speed)
+    SPEED_PWM.ChangeDutyCycle(speed)
     if direction == "F":
         g.output(IN1,g.HIGH)
         g.output(IN2,g.LOW)
