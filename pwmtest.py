@@ -1,24 +1,29 @@
+#define global variables
+ENA = 12
+IN1 = 11
+IN2 = 13
 import RPi.GPIO as g
-from time import sleep
 g.setmode(g.BOARD)
-g.setup(40,g.OUT)
-pwm = g.PWM(40,1000)
-pwm.start(50)
-val = 0
-dir = 1
-try:
-    while True:
-        if dir:
-            val+=1
-        else:
-            val-=1
-        if(val < 0):
-            val = 0
-            dir = 1
-        elif val>100:
-            val=100
-            dir=0
-        pwm.ChangeDutyCycle(val)
-        sleep(0.01)
-except KeyboardInterrupt:
-    g.cleanup()
+g.setup(ENA,g.OUT)
+g.setup(IN1,g.OUT)
+g.setup(IN2,g.OUT)
+pwm = g.PWM(ENA,1000)
+pwm.start(25)
+g.output(IN1,g.LOW)
+g.output(IN2,g.LOW)
+
+while True:
+    command = input().split()
+    if(command[0] == "o"):
+        pwm.ChangeDutyCycle(int(command[1]))
+    elif(command[0] == "f"):
+        g.output(IN1,g.HIGH)
+        g.output(IN2,g.LOW)
+    elif(command[0] == "b"):
+        g.output(IN2,g.HIGH)
+        g.output(IN1,g.LOW)
+    elif(command[0] == "h"):
+        g.output(IN2,g.LOW)
+        g.output(IN1,g.LOW)
+    elif(command[0] == "e"):
+        g.cleanup()
