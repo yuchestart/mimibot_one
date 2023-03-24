@@ -3,6 +3,7 @@ ENA = 12
 IN1 = 11
 IN2 = 13
 import RPi.GPIO as g
+g.cleanup()
 g.setmode(g.BOARD)
 g.setup(ENA,g.OUT)
 g.setup(IN1,g.OUT)
