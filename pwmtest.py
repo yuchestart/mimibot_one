@@ -27,3 +27,4 @@ while True:
         g.output(IN1,g.LOW)
     elif(command[0] == "e"):
         g.cleanup()
+        exit()
