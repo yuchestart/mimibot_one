@@ -73,12 +73,9 @@ def setMotor(speedA,speedB):
     print("Set Motor A speed to:",SPEED['a'],"Set Motor B speed to:",SPEED["b"])
 
 setup(7,11,12,13,15,16,18,22,29,31)
-
+setMotor(50,50)
 try:
     while True:
-        setMotor(50,50)
-        sleep(3)
-        setMotor(-50,-50)
-        sleep(3)
+        sleep(1)
 except KeyboardInterrupt:
     g.cleanup()
