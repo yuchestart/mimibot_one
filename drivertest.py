@@ -49,26 +49,26 @@ def setMotor(speedA,speedB):
             PWM[motor].ChangeDutyCycle(0)
             SPEED[motor] = requested[motor]
             if requested[motor] > 0:
-                g.OUTPUT(pins[motor][0],g.HIGH)
-                g.OUTPUT(pins[motor][1],g.LOW)
+                g.output(pins[motor][0],g.HIGH)
+                g.output(pins[motor][1],g.LOW)
             else:
-                g.OUTPUT(pins[motor][0],g.LOW)
-                g.OUTPUT(pins[motor][1],g.HIGH)
+                g.output(pins[motor][0],g.LOW)
+                g.output(pins[motor][1],g.HIGH)
             sleep(0.05)
             PWM[motor].ChangeDutyCycle(SPEED[motor])
         elif requested[motor] == 0:
             SPEED[motor] = 0
-            g.OUTPUT(pins[motor][0],g.LOW)
-            g.OUTPUT(pins[motor][1],g.LOW)
+            g.output(pins[motor][0],g.LOW)
+            g.output(pins[motor][1],g.LOW)
             PWM[motor].ChangeDutyCycle(0)
         else:
             SPEED[motor] = requested[motor]
             if requested[motor] > 0:
-                g.OUTPUT(pins[motor][0],g.HIGH)
-                g.OUTPUT(pins[motor][1],g.LOW)
+                g.output(pins[motor][0],g.HIGH)
+                g.output(pins[motor][1],g.LOW)
             else:
-                g.OUTPUT(pins[motor][0],g.LOW)
-                g.OUTPUT(pins[motor][1],g.HIGH)
+                g.output(pins[motor][0],g.LOW)
+                g.output(pins[motor][1],g.HIGH)
             PWM[motor].ChangeDutyCycle(SPEED[motor])
     print("Set Motor A speed to:",SPEED['a'],"Set Motor B speed to:",SPEED["b"])
 
