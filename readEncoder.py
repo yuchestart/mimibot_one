@@ -44,6 +44,6 @@ g.add_event_detect(E1A,g.RISING,callback=readEncoderA)
 g.add_event_detect(E2A,g.RISING,callback=readEncoderB)
 try:
     while True:
-        print(round(speeds["A"]/343*10)/10,round(speeds["B"]/343*10)/10)
+        print(round(speeds["A"]/343*100)/100,round(speeds["B"]/343*100)/100)
 except KeyboardInterrupt:
     g.cleanup()
