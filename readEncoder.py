@@ -1,4 +1,5 @@
 import RPi.GPIO as g
+from time import sleep
 def readEncoderA(x):
     global A,B,E1B
     e = g.input(E1B)
@@ -29,3 +30,8 @@ g.setup(E2A,g.IN)
 g.setup(E2B,g.IN)
 g.add_event_detect(E1A,g.RISING,callback=readEncoderA)
 g.add_event_detect(E2A,g.RISING,callback=readEncoderB)
+try:
+    while True:
+        sleep(1)
+except KeyboardInterrupt:
+    g.cleanup()
