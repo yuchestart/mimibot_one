@@ -45,31 +45,23 @@ def setMotor(speedA,speedB):
         "b":[PINS["in3"],PINS["in4"]]
     }
     for motor in SPEED:
-        if requested[motor] > 0 and SPEED[motor] < 0 or requested[motor] < 0 and SPEED[motor] > 0:
-            PWM[motor].ChangeDutyCycle(0)
-            SPEED[motor] = requested[motor]
-            if requested[motor] > 0:
-                g.output(pins[motor][0],g.HIGH)
-                g.output(pins[motor][1],g.LOW)
+        SPEED[motor] = requested[motor]
+        PWM[motor].ChangeDutyCycle(abs(requested[motor]))
+        if requested[motor] < 0:
+            if motor == "a":
+                g.output(PINS["in1"],g.LOW)
+                g.output(PINS["in2"],g.HIGH)
             else:
-                g.output(pins[motor][0],g.LOW)
-                g.output(pins[motor][1],g.HIGH)
-            sleep(0.05)
-            PWM[motor].ChangeDutyCycle(SPEED[motor])
-        elif requested[motor] == 0:
-            SPEED[motor] = 0
-            g.output(pins[motor][0],g.LOW)
-            g.output(pins[motor][1],g.LOW)
-            PWM[motor].ChangeDutyCycle(0)
+                g.output(PINS["in3"],g.LOW)
+                g.output(PINS["in4"],g.HIGH)
         else:
-            SPEED[motor] = requested[motor]
-            if requested[motor] > 0:
-                g.output(pins[motor][0],g.HIGH)
-                g.output(pins[motor][1],g.LOW)
+            if motor == "a":
+                g.output(PINS["in2"],g.LOW)
+                g.output(PINS["in1"],g.HIGH)
             else:
-                g.output(pins[motor][0],g.LOW)
-                g.output(pins[motor][1],g.HIGH)
-            PWM[motor].ChangeDutyCycle(SPEED[motor])
+                g.output(PINS["in4"],g.LOW)
+                g.output(PINS["in3"],g.HIGH)
+            
     print("Set Motor A speed to:",SPEED['a'],"Set Motor B speed to:",SPEED["b"])
 
 setup(7,11,12,13,15,16,18,22,29,31)
