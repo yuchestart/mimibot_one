@@ -90,6 +90,9 @@ class Driver:
         self.encoderSpeeds["b"] = 1/self.lastTimePerEncoder["a"]
         self.lastTimePerEncoder["b"] = t.time()
     def pidLoop(self):
+        velA = self.encoderSpeeds["a"]/373 # Revolutions per second
+        velB = self.encoderSpeeds["b"]/373
+        print(velA,velB)
         t.sleep()
         if self.running:
             self.pidLoop() 
