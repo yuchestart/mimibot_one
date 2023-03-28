@@ -23,9 +23,9 @@ E1A = 18
 E1B = 22
 E2A = 29
 E2B = 31
-g.setup(E1A,g.INPUT)
-g.setup(E1B,g.INPUT)
-g.setup(E2A,g.INPUT)
-g.setup(E2B,g.INPUT)
+g.setup(E1A,g.IN)
+g.setup(E1B,g.IN)
+g.setup(E2A,g.IN)
+g.setup(E2B,g.IN)
 g.add_event_detect(E1A,g.RISING,callback=readEncoderA)
 g.add_event_detect(E2A,g.RISING,callback=readEncoderB)
