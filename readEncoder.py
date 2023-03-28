@@ -18,7 +18,7 @@ def readEncoderB(x):
         B+=1
     else:
         B-=1
-    speeds["A"] = 1/times["A"]
+    speeds["B"] = 1/times["B"]
     times["B"] = time.time()
     print(A,B)
 g.setmode(g.BOARD)
