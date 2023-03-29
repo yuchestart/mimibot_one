@@ -21,30 +21,33 @@ def readEncoderB(x):
 def pidLoop():
     global VA,VB,IN1,IN2,IN3,IN4,setpoints,speeds,pwms,prevT,KP,KI,INTEGRAL
     for motor in ["A","B"]:
-        e = setpoints[motor]-speeds[motor]
-        newtime = t.time()
-        deltaTime = newtime - prevT
-        prevT = newtime
-        INTEGRAL = INTEGRAL + e*deltaTime
-        u = KP*e + KI*INTEGRAL
-        if(u<0):
-            if motor == "A":
-                g.output(IN1,g.LOW)
-                g.output(IN2,g.HIGH)
-            else:
-                g.output(IN3,g.LOW)
-                g.output(IN4,g.HIGH)
+        if speeds[motor] == 0:
+            pwms[motor].ChangeDutyCycle(0)
         else:
-            if motor == "A":
-                g.output(IN2,g.LOW)
-                g.output(IN1,g.HIGH)
+            e = setpoints[motor]-speeds[motor]
+            newtime = t.time()
+            deltaTime = newtime - prevT
+            prevT = newtime
+            INTEGRAL = INTEGRAL + e*deltaTime
+            u = KP*e + KI*INTEGRAL
+            if(u<0):
+                if motor == "A":
+                    g.output(IN1,g.LOW)
+                    g.output(IN2,g.HIGH)
+                else:
+                    g.output(IN3,g.LOW)
+                    g.output(IN4,g.HIGH)
             else:
-                g.output(IN4,g.LOW)
-                g.output(IN3,g.HIGH)
-        pwr = int(abs(u))
-        if pwr > 100:
-            pwr = 100
-        pwms[motor].ChangeDutyCycle(pwr)
+                if motor == "A":
+                    g.output(IN2,g.LOW)
+                    g.output(IN1,g.HIGH)
+                else:
+                    g.output(IN4,g.LOW)
+                    g.output(IN3,g.HIGH)
+            pwr = int(abs(u))
+            if pwr > 100:
+                pwr = 100
+            pwms[motor].ChangeDutyCycle(pwr)
 INTEGRAL = 0  
 prevT = t.time()
 A = 0
@@ -72,8 +75,8 @@ g.setup(IN2,g.OUT)
 g.setup(IN3,g.OUT)
 g.setup(IN4,g.OUT)
 setpoints ={
-    "A":0,
-    "B":0
+    "A":1,
+    "B":1
 }
 
 times = {
@@ -92,3 +95,8 @@ pwms["A"].start(0)
 pwms["B"].start(0)
 g.add_event_detect(E1A,g.RISING,callback=readEncoderA)
 g.add_event_detect(E2A,g.RISING,callback=readEncoderB)
+try:
+    while True:
+        pidLoop()
+except KeyboardInterrupt:
+    g.cleanup()
