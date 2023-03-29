@@ -1,5 +1,6 @@
 import RPi.GPIO as g
 import time as t
+g.setmode(g.BOARD)
 def readEncoderA(x):
     global A,B,E1B,speeds,times
     e = g.input(E1B)
