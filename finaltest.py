@@ -26,7 +26,11 @@ def pidLoop():
             pwms[motor].ChangeDutyCycle(0)
         else:
             e = setpoints[motor]-speeds[motor]
-            u = KP*e
+            newtime = t.time()
+            deltaTime = newtime - prevT
+            prevT = newtime
+            INTEGRAL = INTEGRAL + e*deltaTime
+            u = KP*e + KI*INTEGRAL
             if(u<0):
                 if motor == "A":
                     g.output(IN1,g.LOW)
@@ -50,7 +54,8 @@ INTEGRAL = 0
 prevT = t.time()
 A = 0
 B = 0
-KP = 1
+KP = 3
+KI = 2
 E1A = 18
 E1B = 22
 E2A = 29
