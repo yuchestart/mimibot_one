@@ -76,6 +76,10 @@ g.setup(IN1,g.OUT)
 g.setup(IN2,g.OUT)
 g.setup(IN3,g.OUT)
 g.setup(IN4,g.OUT)
+g.output(IN1,g.HIGH)
+g.output(IN2,g.LOW)
+g.output(IN3,g.HIGH)
+g.output(IN4,g.LOW)
 setpoints ={
     "A":1,
     "B":1
