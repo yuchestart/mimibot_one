@@ -49,7 +49,7 @@ def pidLoop():
             if pwr > 100:
                 pwr = 100
             pwms[motor].ChangeDutyCycle(pwr)
-    print(A,B)
+    print(speeds["A"],speeds["B"])
 INTEGRAL = 0  
 prevT = t.time()
 A = 0
