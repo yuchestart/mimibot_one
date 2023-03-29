@@ -105,3 +105,9 @@ class Controller:
                     if pwr > 100:
                         pwr = 100
                     self.pwm[motor].ChangeDutyCycle(pwr)
+                    print(self.encoders["position"]["A"],self.encoders["position"]["B"])
+                    t.sleep(1/30)
+                    self.driver_loop()
+controller = Controller(7,11,12,13,15,16,18,22,29,31)
+controller.running = True
+controller.driver_loop()
