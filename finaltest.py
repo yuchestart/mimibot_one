@@ -22,7 +22,7 @@ def readEncoderB(x):
 def pidLoop():
     global VA,VB,IN1,IN2,IN3,IN4,setpoints,speeds,pwms,prevT,KP,KI,INTEGRAL
     for motor in ["A","B"]:
-        if speeds[motor] == 0:
+        if setpoints[motor] == 0:
             pwms[motor].ChangeDutyCycle(0)
         else:
             e = setpoints[motor]-speeds[motor]
