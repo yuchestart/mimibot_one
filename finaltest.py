@@ -67,7 +67,7 @@ IN2 = 27#13
 IN3 = 22#15
 IN4 =23# 16
 g.setup(E1A,g.IN)
-g.setup(E1B,g.IN)a00
+g.setup(E1B,g.IN)
 g.setup(E2A,g.IN)
 g.setup(E2B,g.IN)
 g.setup(VA,g.OUT)
