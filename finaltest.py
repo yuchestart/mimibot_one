@@ -101,6 +101,7 @@ pwms["A"].start(0)
 pwms["B"].start(0)
 g.add_event_detect(E1A,g.RISING,callback=readEncoderA)
 g.add_event_detect(E2A,g.RISING,callback=readEncoderB)
+t.sleep(3)
 try:
     while True:
         pidLoop()
