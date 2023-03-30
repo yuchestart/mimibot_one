@@ -1,6 +1,6 @@
 import RPi.GPIO as g
 import time as t
-g.setmode(g.BOARD)
+g.setmode(g.BCM)
 def readEncoderA(x):
     global A,B,E1B,speeds,times
     e = g.input(E1B)
@@ -56,16 +56,16 @@ A = 0
 B = 0
 KP = 10
 KI = 5
-E1A = 18
-E1B = 22
-E2A = 29
-E2B = 31
-VA = 7
-VB = 11
-IN1 = 12
-IN2 = 13
-IN3 = 15
-IN4 = 16
+E1A = 24#18
+E1B = 25#22
+E2A = 5##29
+E2B = 6##31
+VA = 4#7
+VB = 17#11
+IN1 = 18#12
+IN2 = 27#13
+IN3 = 22#15
+IN4 =23# 16
 g.setup(E1A,g.IN)
 g.setup(E1B,g.IN)
 g.setup(E2A,g.IN)
