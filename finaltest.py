@@ -54,8 +54,8 @@ INTEGRAL = 0
 prevT = t.time()
 A = 0
 B = 0
-KP = 10
-KI = 5
+KP = 12
+KI = 3
 E1A = 24#18
 E1B = 25#22
 E2A = 5##29
@@ -67,7 +67,7 @@ IN2 = 27#13
 IN3 = 22#15
 IN4 =23# 16
 g.setup(E1A,g.IN)
-g.setup(E1B,g.IN)
+g.setup(E1B,g.IN)a00
 g.setup(E2A,g.IN)
 g.setup(E2B,g.IN)
 g.setup(VA,g.OUT)
